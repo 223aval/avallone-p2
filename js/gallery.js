@@ -55,6 +55,19 @@ function swapPhoto() {
 	mCurrentIndex += 1;
 }
 
+function toggleDetails()
+{
+	if($(".moreIndicator").hasClass("rot90"))
+	{
+		$(".moreIndicator").removeClass("rot90");
+		$(".moreIndicator").addClass("rot270");
+	}
+	else {
+		$(".moreIndicator").removeClass("rot270");
+		$(".moreIndicator").addClass("rot90");
+	}
+	$(".details").slideToggle("slow", "linear");
+}
 // Counter for the mImages array
 var mCurrentIndex = 0;
 
@@ -108,8 +121,25 @@ $(document).ready( function() {
 	
 	// This initially hides the photos' metadata information
 	//$('.details').eq(0).hide();
-	
+	$("#nextPhoto").position({
+		my: "right bottom",
+		at: "right bottom",
+		of: "#nav"
+	});
 });
+
+const urlParams = new URLSearchParams(window.location.search);
+
+for (const [key, value] of urlParams) {
+	console.log(`${key}:${value}`);
+	mUrl = value;
+}
+if(mUrl == undefined)
+{
+	mUrl = 'images.json';
+}
+
+fetchJSON();
 
 window.addEventListener('load', function() {
 	
